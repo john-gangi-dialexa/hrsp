@@ -3,8 +3,13 @@ type Query {
 }
 
 type Room {
-    id: String
-    roomNumber: String
+    id: ID
+#   locale: Locale
+#   nightOfAvailability: String
+    roomNumber: Int
+#   availability: Boolean
+#   beds: [Bed!]!
+    petFriendly: Boolean
 }
 
 # type Locale {

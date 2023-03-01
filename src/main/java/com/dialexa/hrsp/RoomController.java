@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 public class RoomController {
 
     @QueryMapping
-    public Room getByRoomNumber(@Argument int k) {
-        return Room.getByRoomNumber(k);
+    public Room roomByRoomNumber(@Argument String roomNumber) {
+        return Room.getByRoomNumber(roomNumber);
     }
 
 }

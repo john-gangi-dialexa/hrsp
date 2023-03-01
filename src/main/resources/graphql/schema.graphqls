@@ -1,15 +1,10 @@
 type Query {
-  roomsByRoomNumber(): Room
+  roomByRoomNumber(roomNumber: String!): Room
 }
 
 type Room {
-  id: ID
-#  locale: Locale
-#  nightOfAvailability: String
-#  roomNumber: Int
-#  availability: Boolean
-#  beds: [Bed!]!
-#  petFriendly: Boolean
+    id: String
+    roomNumber: String
 }
 
 # type Locale {

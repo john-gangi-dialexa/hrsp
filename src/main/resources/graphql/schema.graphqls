@@ -1,0 +1,24 @@
+type Query {
+  roomsByRoomNumber(): Room
+}
+
+type Room {
+  id: ID
+#  locale: Locale
+#  nightOfAvailability: String
+#  roomNumber: Int
+#  availability: Boolean
+#  beds: [Bed!]!
+#  petFriendly: Boolean
+}
+
+# type Locale {
+#  id: ID
+#  localeName: String
+#  name: String
+#}
+
+# enum Bed {
+#    SINGLE,
+#    DOUBLE
+#}

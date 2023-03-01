@@ -1,0 +1,13 @@
+query availableRooms {
+     roomsByDateWindow() {
+        locale
+        roomNumber
+        nightOfAvailability
+        availability
+        beds {
+            doubleCount,
+            kingCount
+        }
+        petsAllowed
+    }
+}

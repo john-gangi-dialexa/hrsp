@@ -22,9 +22,5 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 }
 
-flyway {
-    url = 'jdbc:h2:file:./target/foobar'
-    user = 'sa'
-}
 
 

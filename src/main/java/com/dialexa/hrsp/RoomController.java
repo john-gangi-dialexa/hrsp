@@ -7,9 +7,15 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class RoomController {
 
+    private final RoomDao roomDao;
+
+    public RoomController(RoomDao roomDao) {
+        this.roomDao = roomDao;
+    }
+
     @QueryMapping
     public Room roomByRoomNumber(@Argument String roomNumber) {
-        return Room.getByRoomNumber(roomNumber);
+        return roomDao.getRoom(roomNumber);
     }
 
 }

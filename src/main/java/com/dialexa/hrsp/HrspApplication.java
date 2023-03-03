@@ -12,9 +12,9 @@ public class HrspApplication {
     public static void main(String[] args) {
         SpringApplication.run(HrspApplication.class, args);
 
-        String url = System.getenv("DB_URL");
-        String user = System.getenv("JDBC_USER");
-        String password = System.getenv("JDBC_KEY");
+        String url = System.getenv("HRSP_DB_URL");
+        String user = System.getenv("HRSP_DB_USER");
+        String password = System.getenv("HRSP_DB_KEY");
         
         Flyway flyway = Flyway.configure()
                               .dataSource(url, user, password)

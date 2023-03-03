@@ -1,7 +1,10 @@
-package com.dialexa.hrsp;
+package com.dialexa.hrsp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.dialexa.hrsp.dao.RoomDao;
+import com.dialexa.hrsp.model.Room;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,6 +1,8 @@
-package com.dialexa.hrsp;
+package com.dialexa.hrsp.dao;
 
 import java.util.List;
+
+import com.dialexa.hrsp.model.Room;
 
 public class RoomDao {
     

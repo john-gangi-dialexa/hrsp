@@ -1,8 +1,6 @@
-package com.dialexa.hrsp;
-
+package com.dialexa.hrsp.model;
 
 public class Room {
-
     private String id;
     private String roomNumber;
    // private String nightOfAvailability;
@@ -19,7 +17,6 @@ public class Room {
 
     public Room() {
     }
-
 
     public String getRoomNumber() {
         return this.roomNumber;

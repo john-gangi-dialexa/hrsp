@@ -1,5 +1,10 @@
 type Query {
   roomByRoomNumber(roomNumber: String!): Room
+  users: [User!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User
 }
 
 type Room {
@@ -22,3 +27,14 @@ type Room {
 #    SINGLE,
 #    DOUBLE
 #}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+}
+
+type User {
+  id: ID!
+  username: String!
+  password: String!
+}

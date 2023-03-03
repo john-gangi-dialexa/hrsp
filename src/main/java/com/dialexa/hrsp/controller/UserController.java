@@ -2,27 +2,24 @@ package com.dialexa.hrsp.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import com.dialexa.hrsp.dao.jdbc.UserDaoJDBC;
+import com.dialexa.hrsp.service.UserService;
 import com.dialexa.hrsp.model.User;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private final UserDaoJDBC userDaoJDBC;
+    private final UserService userService;
 
-    public UserController(UserDaoJDBC userDaoJDBC) {
-        this.userDaoJDBC = userDaoJDBC;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @QueryMapping
-    public List<User> users(@Argument String UserNumber) {
-        return userDaoJDBC.getAllUsers();
+    public List<User> users() {
+        return userService.getAllUsers();
     }
 
 }

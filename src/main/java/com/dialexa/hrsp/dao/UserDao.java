@@ -8,5 +8,6 @@ import com.dialexa.hrsp.model.User;
 
 public interface UserDao {
     List<User> getAllUsers() throws SQLException;
+    User createUser(String username, String hashedPassword) throws RuntimeException;
 }
 

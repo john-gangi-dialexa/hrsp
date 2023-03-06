@@ -5,18 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dialexa.hrsp.dao.jdbc.UserDaoJDBC;
+import com.dialexa.hrsp.dao.jdbc.UserDaoJdbc;
 import com.dialexa.hrsp.model.User;
 
 @Service
 public class UserService {
-    private final UserDaoJDBC UserDaoJDBC;
+    private final UserDaoJdbc UserDaoJdbc;
 
-    public UserService(UserDaoJDBC UserDaoJDBC) {
-        this.UserDaoJDBC = UserDaoJDBC;
+    @Autowired
+    public UserService(UserDaoJdbc UserDaoJdbc) {
+        this.UserDaoJdbc = UserDaoJdbc;
     }
 
     public List<User> getAllUsers() {
-        return UserDaoJDBC.getAllUsers();
+        return UserDaoJdbc.getAllUsers();
+    }
+
+    public User createUser(String username, String password) {
+         return UserDaoJdbc.createUser(username, password);
     }
 }

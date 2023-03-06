@@ -33,5 +33,9 @@ public class User {
         this.password = password;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
 

@@ -19,10 +19,11 @@ The basic purpose of this project is to implement a **room reservation** service
   - [Table of Contents](#table-of-contents)
   - [Development Log](#development-log)
       - [**Prepare the environment**](#prepare-the-environment)
+        - [***Database Setup:*** I used a free-tier AWS RDS Postgres instance (db.t4g.micro) to "infrastructure" the  data storage layer. If you choose to follow this approach, ensure that your application/IP address is included in the designated security group that is authorized to access the AWS resource.](#database-setup-i-used-a-free-tier-aws-rds-postgres-instance-dbt4gmicro-to-infrastructure-the--data-storage-layer-if-you-choose-to-follow-this-approach-ensure-that-your-applicationip-address-is-included-in-the-designated-security-group-that-is-authorized-to-access-the-aws-resource)
       - [**Create getting-started app**](#create-getting-started-app)
       - [**Our first query (GraphQl)**](#our-first-query-graphql)
-      - [**Our first migration (Postgres)**](#our-first-migration-postgres)
-  - [Installation](#installation)
+      - [**Our first migration (Postgres/Flyway)**](#our-first-migration-postgresflyway)
+  - [Installation:](#installation)
   - [Usage](#usage)
   - [Contributing](#contributing)
 
@@ -34,9 +35,12 @@ Check to make sure that all prequisite software is installed:
 
 - Java 19
 - Gradle 8
-  - `Brew install gradle`
 - VS Code 1.76 (Optional)
 - PG Admin 4 (Optional)
+
+##### ***Database Setup:*** I used a free-tier AWS RDS Postgres instance (db.t4g.micro) to "infrastructure" the  data storage layer. If you choose to follow this approach, ensure that your application/IP address is included in the designated security group that is authorized to access the AWS resource.
+
+
 
 ---
 #### **Create getting-started app**
@@ -106,7 +110,7 @@ type Room {
     roomNumber: String
 }
  ```
- Now when we build, gradle will include this schema in the project. We can start satisfying the schema by writting our accompanying controller (`UserController.java`):
+ Now when we build, gradle will include this schema in the project. We can start satisfying the schema by writting our first controller (`UserController.java`):
 
  ```java
 
@@ -184,28 +188,126 @@ query {
 
 ---
 
-#### **Our first migration (Postgres)**
+#### **Our first migration (Postgres/Flyway)**
 
-## Installation
+Flyway provides an uncomplicated interface for easy version control over a Postgres resource (i.e. migration pattern). 
 
-The process to get up and running with the repo. 
+The simplest way to run flyway is to:
+1. make sure to include Flyway Migration as a dependency from start.spring.io
+2. create an initial schema at the below directory (following the naming convetion of V1__Name ... V2__Name2 ... and so on):
+`resources/db/migration/V1__Create_first_db_schema.sql`
+
+to start with something simple:
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL
+);
+```
+3. add environmental variables for postgresql database connection:
+
+
+For mac users edit ~./zshenv:
+```bash
+export HRSP_DB_URL='jdbc:postgresql:{URL}:{PORT}/{DB}'
+export HRSP_DB_USER='{USER}'
+export HRSP_DB_KEY='{PASSWORD}'
+```
+4. Add a config class to hold our connection logic and inject it into the main driver:
+
+so hrsp/config/FlywayConfig.java will look like this:
+```java
+
+package com.dialexa.hrsp.config;
+
+import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import javax.sql.DataSource;
+
+@Configuration
+public class FlywayConfig {
+
+    @Value("${HRSP_DB_URL}")
+    private String url;
+
+    @Value("${HRSP_DB_USER}")
+    private String user;
+
+    @Value("${HRSP_DB_KEY}")
+    private String password;
+
+    @Bean
+    public Flyway flyway(DataSource dataSource) {
+        Flyway flyway = Flyway.configure()
+                              .dataSource(url,user,password)
+                              .load();
+        flyway.migrate(); //triggers migration
+        return flyway;
+    }
+}
+
+```
+
+and we inject it into our main driver with this:
+
+```java
+
+package com.dialexa.hrsp;
+
+import org.springframework.boot.SpringApplication;
+
+import org.springframework.context.annotation.Import; // import this
+
+import com.dialexa.hrsp.config.FlywayConfig; //import this
+
+@SpringBootApplication
+@Import(FlywayConfig.class) //add this annotation
+public class HrspApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(HrspApplication.class, args)
+    }
+}
+
+```
+
+Now when you run the applcation (`./gradlew -bootRun`), you should see successfull migration logs in the console output.
+
+
+---
+
+## Installation:
+
+(Instructions for MacOS)
 
 **Prerequisites:**
-- Java 19
-- PG Admin
 
-```sh
-npm install
+- Java 19
+ ```zsh
+brew install java
 ```
+- Gradle 8
+
+```zsh
+brew install gradle
+```
+  
+**Other Tooling:**
+- PG Admin
+- VS Code
+- .zsh
+
 
 ## Usage
 
-How to use the project, examples and demos.
+TODO: How to use the project, examples and demos.
 
 
 ## Contributing
 
-Guidelines for contributing to the project. 
+TODO: Guidelines for contributing to the project. 
 
 1. Fork the repository
 2. Create a new branch

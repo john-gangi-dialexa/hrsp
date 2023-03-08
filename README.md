@@ -240,7 +240,7 @@ public class FlywayConfig {
     private String password;
 
     @Bean
-    public Flyway flyway(DataSource dataSource) {
+    public Flyway flyway() {
         Flyway flyway = Flyway.configure()
                               .dataSource(url,user,password)
                               .load();

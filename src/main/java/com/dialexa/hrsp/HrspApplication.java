@@ -13,7 +13,7 @@ import com.dialexa.hrsp.config.FlywayConfig;
 public class HrspApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HrspApplication.class, args)
+        SpringApplication.run(HrspApplication.class, args);
     }
   
 

@@ -1,0 +1,10 @@
+// HINT HINT! Instead of copying and pasting this everywhere, maybe turn it into a plugin?
+
+checkstyleTest.enabled = false
+//checkstyleUiTest.enabled = false
+
+checkstyle {
+    ignoreFailures = false
+    maxWarnings = 0
+}
+

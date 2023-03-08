@@ -1,0 +1,9 @@
+// HINT HINT! Instead of copying and pasting this everywhere, maybe turn it into a plugin?
+
+// PMD!
+pmdTest.enabled = false
+//pmdUiTest.enabled = false
+
+pmd {
+    ruleSets = ["config/pmd-java.xml"]
+}

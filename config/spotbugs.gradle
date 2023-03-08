@@ -1,0 +1,24 @@
+// HINT HINT! Instead of copying and pasting this everywhere, maybe turn it into a plugin?
+
+// SPOTBUGS!
+spotbugsTest.enabled = false
+//spotbugsUiTest.enabled = false
+
+spotbugs {
+    ignoreFailures = false
+    showStackTraces = true
+    showProgress = false
+    effort = 'default'
+    reportLevel = 'default'
+    excludeFilter = file("config/findbugs-exclude.xml")
+}
+
+spotbugsMain {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
+}
